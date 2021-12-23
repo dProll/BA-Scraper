@@ -17,5 +17,3 @@ class CrawlerSpider(scrapy.Spider):
         title = response.meta.get('title')
         comments = response.xpath("//div[@class='post-message ']/div/p").getall()
         yield {'title': title}
-
-
