@@ -10,10 +10,11 @@ class CrawlerSpider(scrapy.Spider):
     def parse(self, response):
         title = response.xpath('//html/head/title/text()').extract_first()
         iframe_url = response.xpath('//iframe[@title="Disqus"]//@src').get()
-        yield Request(iframe_url, callback=self.next_parse, meta={'title': title})
-
-    def next_parse(self, response):
+        yield {'Title': title, 'Url': iframe_url}
         
-        title = response.meta.get('title')
-        comments = response.xpath("//div[@class='post-message ']/div/p").getall()
-        yield {'title': title}
+    #     yield Request(iframe_url, callback=self.next_parse, meta={'title': title})
+
+    # def next_parse(self, response):
+    #     title = response.meta.get('title')
+    #     comments = response.xpath("//div[@class='post-message ']/div/p").getall()
+    #     yield {'title': title}
